@@ -2,10 +2,21 @@
 
 {% block title %}Annonces{% endblock %}
 
+
 {% block body %}
   <div class="container mt-4">
     {%if not notices.items is same as([]) %}
       <h1 class="text-center">Nos annonces</h1>
+      
+    <a href="{{ path('notice.new') }}" class="btn btn-primary">Créer une annonce</a>
+
+      
+    {% for message in app.flashes('success') %}
+      <div class='alert alert-success mt-4'>
+        {{  message }}
+      </div>
+    {% endfor %}
+
       <div class="count mt-4 ">
             <p>
               Nous avons actuellement 
@@ -24,6 +35,10 @@
               <p class="card-title">{{ notice.salary }} € par mois</p>
               <p class="card-title">{{ notice.schedule }} heures par jour</p>
               <p class="card-title">{{ notice.createdAt|date("d/m/Y") }}</p>
+              <div class="card-title">
+                <a href="{{ path('notice.edit', {id: notice.id}) }}" class="btn btn-info">Modifier</a>
+                <a href="{{ path('notice.delete', {id: notice.id}) }}" class="btn btn-danger">Supprimer</a>
+              </div>
             </div>
           </div>
         {% endfor %}
