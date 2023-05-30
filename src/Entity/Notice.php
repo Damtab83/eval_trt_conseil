@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\NoticeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: NoticeRepository::class)]
+#[UniqueEntity('title')]
 class Notice
 {
     #[ORM\Id]

@@ -3,20 +3,36 @@
 {% block title %}Annonces{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-      <h1>Nos annonces</h1>
-
-      {% for notice in notices %}
-        <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
-          <div class="card-header">{{ notice.title }}</div>
-          <div class="card-body">
-            <p class="card-text">{{ notice.description }}</p>
-            <h6 class="card-title">{{ notice.localisation }}</h6>
-            <p class="card-title">{{ notice.salary }} € par mois</p>
-            <p class="card-title">{{ notice.schedule }} heures par jour</p>
-            <p class="card-title">{{ notice.createdAt }}</p>
-          </div>
+  <div class="container mt-4">
+    {%if not notices.items is same as([]) %}
+      <h1 class="text-center">Nos annonces</h1>
+      <div class="count mt-4 ">
+            <p>
+              Nous avons actuellement 
+              {{ notices.getTotalItemCount }} 
+              annonces à vous proposer
+            </p>
         </div>
-      {% endfor %}
-    </div>
+
+      <div class="row">
+        {% for notice in notices %}
+          <div class="card text-white bg-secondary m-3 col-4" style="max-width: 20rem;">
+            <div class="card-header">{{ notice.title }}</div>
+            <div class="card-body">
+              <p class="card-text">{{ notice.description }}</p>
+              <h6 class="card-title">{{ notice.location }}</h6>
+              <p class="card-title">{{ notice.salary }} € par mois</p>
+              <p class="card-title">{{ notice.schedule }} heures par jour</p>
+              <p class="card-title">{{ notice.createdAt|date("d/m/Y") }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="navigation d-flex justify-content-center">
+          {{ knp_pagination_render(notices) }}
+      </div>
+    {% else %}
+      <h4>Il n'a pas d'annonces</h4>
+    {% endif %}
+  </div>
 {% endblock %}
