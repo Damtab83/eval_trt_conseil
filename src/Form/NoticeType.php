@@ -26,6 +26,9 @@ class NoticeType extends AbstractType
                     'maxlength' => '50'
                 ],
                 'label' => 'Titre',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['min' => 2, 'max' => 50])
@@ -37,6 +40,9 @@ class NoticeType extends AbstractType
                     'minlength' => '20'
                 ],
                 'label' => 'Description',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['min' => 20])
@@ -49,6 +55,9 @@ class NoticeType extends AbstractType
                     'maxlength' => '150'
                 ],
                 'label' => 'Ville',
+                'label_attr' => [
+                    'class' => 'form-label mt-3'
+                ],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['min' => 2, 'max' => 50])
@@ -59,6 +68,9 @@ class NoticeType extends AbstractType
                     'class' => 'form-control'
                 ],
                 'label' => 'Salaire : ',
+                'label_attr' => [
+                    'class' => 'form-label mt-3'
+                ],
                 'constraints' => [
                     new Assert\NotNull(),
                     new Assert\Positive()
@@ -69,11 +81,14 @@ class NoticeType extends AbstractType
                     'class' => 'form-control'
                 ],
                 'label' => 'Temps de travail journalier',
+                'label_attr' => [
+                    'class' => 'form-label mt-3'
+                ],
                 'constraints' => [
                     new Assert\NotNull(),
                     new Range([
                         'min' => 4,
-                        'max' => 12,
+                        'max' => 13,
                         'minMessage' => 'Vous ne pouvez pas faire travailler un salarié si peu de temps',
                         'maxMessage' => 'Vous ne pouvez pas faire travailler un salarié autant de temps'
                     ])
@@ -81,7 +96,7 @@ class NoticeType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary mt-4'
+                    'class' => 'btn btn-primary mt-3'
                 ],
                 'label' => 'Valider mon annonce'
             ])
