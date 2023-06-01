@@ -3,10 +3,12 @@
 namespace App\DataFixtures;
 
 use App\Entity\Notice;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
@@ -32,6 +34,17 @@ class AppFixtures extends Fixture
                 ->setSchedule(mt_rand(7, 12));
 
                 $manager->persist($notice);
+        }
+
+        //Users
+        for ($i=0; $i < 10; $i++) {
+            $user = new User();
+            $user->setLastName($this->faker->lastname())
+                ->setEmail($this->faker->email())
+                ->setRoles(['ROLE_USER'])
+                ->setPlainPassword('password');
+
+            $manager->persist($user);
         }
 
 
