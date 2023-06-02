@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="mt-4 text-center">Inscription</h1>
+
+        <div class="group-control mt-4">
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.lastname) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+
+                <button type="submit" class="btn btn-primary mt-4">Register</button>
+            {{ form_end(registrationForm) }}
+        
+        </div>
+
+    
+    </div>
+{% endblock %}

@@ -9,6 +9,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LoginController extends AbstractController
 {
+    /**
+     * This controller allow us to LOGIN
+     *
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
+     */
     #[Route('/login', name: 'app_login',  methods: ['GET', 'POST'])]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
@@ -21,6 +27,11 @@ class LoginController extends AbstractController
         ]);
     }
 
+    /**
+     * Thgis controller allow us to LOGOUT
+     *
+     * @return void
+     */
     #[Route('/logout', 'app_logout')]
     public function logout()
     {

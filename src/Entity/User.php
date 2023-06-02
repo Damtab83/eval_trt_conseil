@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -36,9 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 8, max: 100)]
-    private ?string $password = null;
+    private ?string $password = 'password';
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     #[Assert\Length(min: 2, max: 255)]
     private ?string $lastname = null;
 
