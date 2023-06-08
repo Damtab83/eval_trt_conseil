@@ -42,6 +42,10 @@ class Notice
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'notice')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $recruteur = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -120,6 +124,18 @@ class Notice
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getRecruteur(): ?User
+    {
+        return $this->recruteur;
+    }
+
+    public function setRecruteur(?User $recruteur): self
+    {
+        $this->recruteur = $recruteur;
 
         return $this;
     }

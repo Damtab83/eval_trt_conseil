@@ -27,8 +27,8 @@ class NoticeController extends AbstractController
     public function index(NoticeRepository $noticeRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $notices = $paginator->paginate(
-            $noticeRepository->findAll(),
-            $request->query->getInt('page', 1), 
+            $noticeRepository->findBy(['recruteur' => $this->getUser()]),
+            $request->query->getInt('page', 1),
             9
         );
 
@@ -53,6 +53,7 @@ class NoticeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $notice = $form->getData();
+            $notice->setRecruteur($this->getUser());
 
             $manager->persist($notice);
             $manager->flush();

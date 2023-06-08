@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -53,6 +55,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?bool $isValid = null;
+
+    #[ORM\OneToMany(mappedBy: 'recruteur', targetEntity: Notice::class, orphanRemoval: true)]
+    private Collection $notice;
+
+    public function __construct()
+    {
+        $this->notice = new ArrayCollection();
+    }
 
     /**
      * GETTERS and SETTERS
@@ -193,6 +203,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsValid(bool $isValid): self
     {
         $this->isValid = $isValid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notice>
+     */
+    public function getNotice(): Collection
+    {
+        return $this->notice;
+    }
+
+    public function addNotice(Notice $notice): self
+    {
+        if (!$this->notice->contains($notice)) {
+            $this->notice->add($notice);
+            $notice->setRecruteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotice(Notice $notice): self
+    {
+        if ($this->notice->removeElement($notice)) {
+            // set the owning side to null (unless already changed)
+            if ($notice->getRecruteur() === $this) {
+                $notice->setRecruteur(null);
+            }
+        }
 
         return $this;
     }
