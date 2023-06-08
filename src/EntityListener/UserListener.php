@@ -23,7 +23,6 @@ class UserListener{
   public function preUpdate(User $user)
   {
     $this->encodePassword($user);
-
   }
 
   /**

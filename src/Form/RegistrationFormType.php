@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -58,44 +59,30 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'type' => PasswordType::class,
                 'mapped' => false,
                 'required' => true,
                 'first_options' => [
                     'label' => 'Mot de Passe',
                     'attr' => [
-                        'autocomplete' => 'new-password',
-                        'class' => 'form-control',
-                        'minlength' => '10',
-                        'maxlength'> '180'
+                        'class' => 'form-control'
                     ]
                 ],
                 'second_options' => [
                     'label' => 'Confirmer votre mot de passe',
                     'attr' => [
-                        'autocomplete' => 'new-password',
-                        'class' => 'form-control',
-                        'minlength' => '10',
-                        'maxlength'> '180'
-                    ],
+                        'class' => 'form-control'
+                    ]
                 ],
-                'label_attr' => [
-                    'class' => 'form-label'
-                ],
-                'constraints' => [
-                    new Assert\NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Assert\Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
+                'invalid_message' => 'Les mots de passe ne correspondent pas.'
             ])
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary mt-4'
+                ],
+                'label' => 'Créer'
+            ])
+
         ;
     }
 

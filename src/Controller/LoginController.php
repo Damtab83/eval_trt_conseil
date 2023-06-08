@@ -28,7 +28,7 @@ class LoginController extends AbstractController
     }
 
     /**
-     * Thgis controller allow us to LOGOUT
+     * This controller allow us to LOGOUT
      *
      * @return void
      */
